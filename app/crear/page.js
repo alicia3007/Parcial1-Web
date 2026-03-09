@@ -13,6 +13,32 @@ export default function CrearAutor() {
 
     const router = useRouter()
 
+    const clearError = (field) => {
+        setErrors(prev => ({
+            ...prev,
+            [field]: undefined
+        }))
+    }
+
+    const validateField = (field, value) => {
+        if (!value) {
+            setErrors(prev => ({
+                ...prev,
+                [field]: getErrorMessage(field)
+            }))
+        }
+    }
+
+    const getErrorMessage = (field) => {
+        const messages = {
+            name: "El nombre es obligatorio",
+            birthDate: "La fecha es obligatoria",
+            description: "La descripción es obligatoria",
+            image: "La imagen es obligatoria"
+        }
+        return messages[field]
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -23,6 +49,7 @@ export default function CrearAutor() {
         if (!image) newErrors.image = "La imagen es obligatoria"
 
         setErrors(newErrors)
+
         if (Object.keys(newErrors).length > 0) return
 
         const newAuthor = { name, birthDate, description, image }
@@ -50,6 +77,7 @@ export default function CrearAutor() {
                 <form onSubmit={handleSubmit} className="author-form" noValidate>
 
                     <div className="form-row">
+
                         <div className={`form-field ${errors.name ? "has-error" : ""}`}>
                             <label htmlFor="name" className="field-label">Nombre completo</label>
                             <input
@@ -57,7 +85,11 @@ export default function CrearAutor() {
                                 type="text"
                                 placeholder="Ej: Gabriel García Márquez"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => {
+                                    setName(e.target.value)
+                                    clearError("name")
+                                }}
+                                onBlur={() => validateField("name", name)}
                                 aria-invalid={errors.name ? "true" : "false"}
                                 aria-describedby="name-error"
                                 className="field-input"
@@ -75,7 +107,11 @@ export default function CrearAutor() {
                                 id="birthDate"
                                 type="date"
                                 value={birthDate}
-                                onChange={(e) => setBirthDate(e.target.value)}
+                                onChange={(e) => {
+                                    setBirthDate(e.target.value)
+                                    clearError("birthDate")
+                                }}
+                                onBlur={() => validateField("birthDate", birthDate)}
                                 aria-invalid={errors.birthDate ? "true" : "false"}
                                 aria-describedby="birthDate-error"
                                 className="field-input"
@@ -86,6 +122,7 @@ export default function CrearAutor() {
                                 </p>
                             )}
                         </div>
+
                     </div>
 
                     <div className={`form-field ${errors.image ? "has-error" : ""}`}>
@@ -95,7 +132,11 @@ export default function CrearAutor() {
                             type="text"
                             placeholder="https://ejemplo.com/foto.jpg"
                             value={image}
-                            onChange={(e) => setImage(e.target.value)}
+                            onChange={(e) => {
+                                setImage(e.target.value)
+                                clearError("image")
+                            }}
+                            onBlur={() => validateField("image", image)}
                             aria-invalid={errors.image ? "true" : "false"}
                             aria-describedby="image-error"
                             className="field-input"
@@ -113,7 +154,11 @@ export default function CrearAutor() {
                             id="description"
                             placeholder="Breve biografía del autor..."
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={(e) => {
+                                setDescription(e.target.value)
+                                clearError("description")
+                            }}
+                            onBlur={() => validateField("description", description)}
                             aria-invalid={errors.description ? "true" : "false"}
                             aria-describedby="description-error"
                             className="field-textarea"
@@ -133,9 +178,14 @@ export default function CrearAutor() {
                         </div>
                     )}
 
-                    <button type="submit" className="btn-submit">
+                    <button
+                        type="submit"
+                        className="btn-submit"
+                        disabled={!name || !birthDate || !description || !image}
+                    >
                         Crear Autor
                     </button>
+
                 </form>
             </div>
         </div>
