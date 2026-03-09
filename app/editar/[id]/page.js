@@ -12,6 +12,7 @@ export default function EditarAutor() {
     const [birthDate, setBirthDate] = useState("")
     const [description, setDescription] = useState("")
     const [image, setImage] = useState("")
+    
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8080/api/authors/${id}`)
