@@ -56,7 +56,7 @@ export default function AuthorsPage() {
                 />
             </div>
 
-            {/* ESTADOS DE LA INTERFAZ */}
+            {}
             {authors.length === 0 ? (
                 <div className="empty-state">
                     <span className="empty-icon">✦</span>
@@ -69,7 +69,6 @@ export default function AuthorsPage() {
             ) : filteredAuthors.length === 0 ? (
 
                 <div className="empty-state">
-                    <span className="empty-icon">🔎</span>
                     <p>No se encontraron autores con ese nombre.</p>
                 </div>
 

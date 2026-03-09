@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Parte 3: Documentación y README
 
-## Getting Started
+1. Guía de ejecución
 
-First, run the development server:
+    - Para comenzar, necesitamos que se encuentre corriendo el back del book, por lo que tenemos que tener la imágen creada (tener docker abierto) y corriendo por medio del comando docker build ./ -t bookstore (para crear) y docker run -d -p 127.0.0.1:8080:8080 bookstore (para correr) 
+    
+    - Ahora, necesitamos todo lo de npm, por lo que lo instalamos (npm install) y ya al finalizar la aplicación y probarla utilizamos el comando (npm run dev). 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    - Con respecto a las pruebas jest, también necesitamos múltiples librerías y que todas se encuentren corriendo, por lo que instalamos todas las dependencias que necesitamos y corremos las pruebas por medio del comando (npm test). 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Reporte de cambios
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    Con respecto a la estratégia utilizada para que los datos persistieran entre rutas, lo que me pareció más sencillo es seguir con las reglas CRUD, específicando de qué API venía cada dato y obligando que cada creación de dato realizara "push" en el API (al igual que se realizaran los cambios de eliminación y de edición). 
 
-## Learn More
+    Sobre la lógica de filtrado, se realizó un "search box" por medio del cual se especifica al usuario que la búsqueda debe ser por nombre. Si se encuentra uno o varios autores con ese nombre, estos aparecen, sino es el caso aparece un mensaje indicando que el nombre del autor no se encuentra en la lista. 
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Aclaraciones adicionales 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    Como el botón de "Crear Autor" según las intrucciones de las pruebas, debe quedar desactivado, se optó mostrar el error cada vez que el usuario se hace en un espacio para escribir y lo deja vacío, ahí le aparece un mensaje indicando que todos los campos son obligatorios. 
